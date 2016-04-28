@@ -17,6 +17,13 @@ def get_val(ipam_row):
 	vl_descr = ipam_row[1]
 	vl_network = ipam_row[2]
 	hsrp_create(vl_num, vl_descr, vl_network)
+	vlan_create(vl_num, vl_descr)
+
+#Create VLANs
+def vlan_create(vl_num, vl_descr):
+	vlan_text = 'vlan %s \ndescription %s \n' % (vl_num, vl_descr)
+	with open(filename3, "a") as myfile:
+		myfile.write(vlan_text)
 
 #takes variables and creates two files with configuration templates and timestamps. The two files are for HSRP primary and HSRP Standby respectively.
 def hsrp_create(vl_num, vl_descr, vl_network):
@@ -39,4 +46,5 @@ def hsrp_create(vl_num, vl_descr, vl_network):
 
 filename1 = "HSRP1-" + str(datetime.now().strftime('%Y-%m-%d_%H%M')) + ".txt"
 filename2 = "HSRP2-" + str(datetime.now().strftime('%Y-%m-%d_%H%M')) + ".txt"
+filename3 = "VLAN-" + str(datetime.now().strftime('%Y-%m-%d_%H%M')) + ".txt"
 get_lines()
